@@ -15,7 +15,7 @@
             var userAnswers = cleanString(document.getElementById("userAnswers").value);
             var correctAnswers = "ddddd";  // Change this to the correct answers
 
-            if (userAnswers.length !== correctAnswers.length) {
+            if (userAnswers.length > correctAnswers.length) {
                 document.getElementById("result").innerHTML = "Please enter exactly " + correctAnswers.length + " characters.";
                 return;
             }
