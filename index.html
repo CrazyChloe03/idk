@@ -8,15 +8,17 @@
     <script>
         function cleanString(s) {
             // Remove specified characters: "/", " ", and "."
-            return s.replace("/", "").replace(" ", "").replace(".", "");
+            return s.replace(/[\/ .]/g, '').toLowerCase();
         }
 
         function compareAnswers() {
-            var userAnswers = document.getElementById("userAnswers").value;
+            var userAnswers = cleanString(document.getElementById("userAnswers").value);
             var correctAnswers = "ddddd";  // Change this to the correct answers
 
-            userAnswers = cleanString(userAnswers.toLowerCase());
-            correctAnswers = cleanString(correctAnswers.toLowerCase());
+            if (userAnswers.length !== correctAnswers.length) {
+                document.getElementById("result").innerHTML = "Please enter exactly " + correctAnswers.length + " characters.";
+                return;
+            }
 
             var incorrectIndices = [];
             for (var i = 0; i < userAnswers.length; i++) {
@@ -25,7 +27,7 @@
                 }
             }
 
-            var accuracy = (userAnswers.length - incorrectIndices.length) / userAnswers.length * 100;
+            var accuracy = (userAnswers.length - incorrectIndices.length) / correctAnswers.length * 100;
 
             var resultContainer = document.getElementById("result");
             if (incorrectIndices.length === 0) {
