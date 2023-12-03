@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <script>
+        function cleanString(s) {
+            // Remove specified characters: "/", " ", and "."
+            return s.replace("/", "").replace(" ", "").replace(".", "");
+        }
+
+        function compareAnswers() {
+            var userAnswers = document.getElementById("userAnswers").value;
+            var correctAnswers = "ddddd";  // Change this to the correct answers
+
+            userAnswers = cleanString(userAnswers.toLowerCase());
+            correctAnswers = cleanString(correctAnswers.toLowerCase());
+
+            var incorrectIndices = [];
+            for (var i = 0; i < userAnswers.length; i++) {
+                if (userAnswers[i] !== correctAnswers[i]) {
+                    incorrectIndices.push(i + 1);
+                }
+            }
+
+            var accuracy = (userAnswers.length - incorrectIndices.length) / userAnswers.length * 100;
+
+            var resultContainer = document.getElementById("result");
+            if (incorrectIndices.length === 0) {
+                resultContainer.innerHTML = "All answers are correct! Accuracy: " + accuracy.toFixed(2) + "%";
+            } else {
+                resultContainer.innerHTML = "Incorrect answers at positions: " + incorrectIndices.join(', ') +
+                    "<br>Accuracy: " + accuracy.toFixed(2) + "%";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <label for="userAnswers">Enter your answers:</label>
+    <input type="text" id="userAnswers" placeholder="Enter your answers">
+    <button onclick="compareAnswers()">Submit</button>
+    <div id="result"></div>
+</body>
+</html>
